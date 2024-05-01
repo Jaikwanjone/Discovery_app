@@ -36,7 +36,6 @@ function PokeSearch() {
 
     setLoading(false);
   };
-  console.log(poke);
   useEffect(() => {
     fetchPokeData();
   }, []);

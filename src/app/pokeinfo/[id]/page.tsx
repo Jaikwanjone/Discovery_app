@@ -6,31 +6,30 @@ import { useEffect, useState } from "react";
 
 interface Prop {
   name: string;
-  url: string;
+  sprites: {
+    other: {
+      home: {
+        front_default: string;
+      };
+    };
+  };
   weight: number;
 }
 const page = () => {
   const param = useParams();
-  const [poke, setPoke] = useState<Prop>({});
+  const [poke, setPoke] = useState<Prop | null>(null);
   const [loading, setLoading] = useState<Boolean>(false);
 
   useEffect(() => {
-    setLoading(true);
-    const newData: Prop = {
-      name: "",
-      url: "",
-      weight: 0,
-    };
     const fetchPoke = async () => {
       try {
+        setLoading(true);
         const response = await fetch(
           ` https://pokeapi.co/api/v2/pokemon/${param.id}`
         );
         const singlePoke = await response.json();
-        newData.name = singlePoke.name;
-        newData.url = singlePoke.sprites.other.home.front_default;
-        newData.weight = singlePoke.weight;
-        setPoke(newData);
+
+        setPoke(singlePoke);
       } catch (error) {
         console.log(error);
       }
@@ -55,7 +54,7 @@ const page = () => {
                 {poke.name}
               </h3>
               <Image
-                src={poke.url}
+                src={poke.sprites.other.home.front_default}
                 width={160}
                 height={160}
                 alt={poke.name}
