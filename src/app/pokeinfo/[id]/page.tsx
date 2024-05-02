@@ -15,30 +15,34 @@ interface Prop {
   };
   weight: number;
 }
-const page = () => {
+const PokeInfo = () => {
   const param = useParams();
+
   const [poke, setPoke] = useState<Prop | null>(null);
   const [loading, setLoading] = useState<Boolean>(false);
 
-  useEffect(() => {
-    const fetchPoke = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          ` https://pokeapi.co/api/v2/pokemon/${param.id}`
-        );
-        const singlePoke = await response.json();
+  const fetchPoke = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        ` https://pokeapi.co/api/v2/pokemon/${param.id}`
+      );
+      const data = await response.json();
 
-        setPoke(singlePoke);
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    };
+      setPoke(data);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
     fetchPoke();
   }, []);
 
-  if (!poke) return null;
+  if (!poke) return;
+  <p>Loading ...</p>;
+
   return (
     <div className=" p-24">
       <Link href="/" className=" bg-blue-500 rounded-md p-3 text-white">
@@ -57,7 +61,7 @@ const page = () => {
                 src={poke.sprites.other.home.front_default}
                 width={160}
                 height={160}
-                alt={poke.name}
+                alt={poke.sprites.other.home.front_default}
                 className=" transition ease-in duration-75 hover:scale-150 translate-x-5"
               />
               <div className="mt-5 z-10">
@@ -76,4 +80,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default PokeInfo;
