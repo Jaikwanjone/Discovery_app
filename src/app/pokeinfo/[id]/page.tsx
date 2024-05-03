@@ -30,7 +30,6 @@ const PokeInfo = () => {
       const data = await response.json();
 
       setPoke(data);
-      s;
     } catch (error) {
       console.log(error);
     }
