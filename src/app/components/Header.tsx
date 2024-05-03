@@ -6,7 +6,8 @@ function Header() {
   const router = useRouter();
   const [poke, setpoke] = useState<string>("");
   const handleInput = (evt: ChangeEvent<HTMLInputElement>) => {
-    setpoke(evt.target.value);
+    let texts = evt.target.value;
+    setpoke(texts.toLocaleLowerCase());
   };
   const handleFrom = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

@@ -39,7 +39,22 @@ function PokeSearch() {
   useEffect(() => {
     fetchPokeData();
   }, []);
-  if (!poke) return null;
+  if (!poke)
+    return (
+      <>
+        <Link
+          href="/"
+          className=" bg-blue-500 rounded-md p-3 text-white relative top-3"
+        >
+          Go Back
+        </Link>
+        <div className=" w-full flex justify-center items-center h-full mt-11">
+          <h1 className=" w-[400] h-[200]  p-3 shadow-md rounded-md bg-red-400 mx-auto text-3xl text-purple-300">
+            !Somethings is wrong..Please search another Poke
+          </h1>
+        </div>
+      </>
+    );
   return (
     <div className=" p-24">
       <Link href="/" className=" bg-blue-500 rounded-md p-3 text-white">
